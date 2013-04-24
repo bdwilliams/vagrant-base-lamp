@@ -1,0 +1,8 @@
+.vagrant
+www/*
+sql/*
+.git
+chef/cookbooks/*
+sites.cfg
+hosts
+Vagrantfile

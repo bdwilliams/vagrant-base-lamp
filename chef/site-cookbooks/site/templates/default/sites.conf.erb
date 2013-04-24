@@ -4,20 +4,10 @@
   DocumentRoot <%= @params[:docroot] %>
   RewriteEngine On
   
-  <Directory <%= @params[:docroot] %>>
-    Options FollowSymLinks
+  <Directory <%= @params[:docroot] %>/>
+    Options All
     AllowOverride All
-    Order allow,deny
-    Allow from all
   </Directory>
-  
-  <Location /server-status>
-    SetHandler server-status
-
-    Order Deny,Allow
-    Deny from all
-    Allow from 127.0.0.1
-  </Location>
   
   php_flag xdebug.profiler_enable_trigger On 
 

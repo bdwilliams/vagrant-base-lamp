@@ -5,7 +5,8 @@ Vagrant::Config.run do |config|
     # All Vagrant configuration is done here. The most common configuration
     # options are documented and commented below. For a complete reference,
     # please see the online documentation at vagrantup.com.
-
+    config.vm.share_folder("vagrant-root", "/vagrant", ".", :owner => "www-data", :group => "www-data")
+    
     # Every Vagrant virtual environment requires a box to build off of.
     config.vm.box = "lucid64"
 
@@ -15,27 +16,32 @@ Vagrant::Config.run do |config|
 
     config.vm.define :project do |project_config|
         project_config.vm.forward_port 80, 8080
-        # config.vm.boot_mode = :gui
-        # config.vm.share_folder "v-data", "/vagrant_data", "../data"
-
       
         project_config.vm.provision :chef_solo do |chef|
             chef.cookbooks_path = ["chef/cookbooks/", "chef/site-cookbooks/"]
-
+	    
             chef.run_list = ["recipe[site]"]
             chef.json = {
                 sites:[
-                    {
-                        name: "zf2app",
-                        docroot: "/vagrant/www/",
-                        server_name: "www.zf2app.dev",
-                        server_aliases: ["www.zf2app.dev"],
-                    },{
-                        name: "debug.zf2app",
-                        docroot: "/var/www/webgrind/",
-                        server_name: "debug.zf2app.dev",
-                        server_aliases: ["debug.zf2app.dev"],
-                    }
+                          {
+                        name: "www.churchbug.site",
+                        docroot: "/vagrant/www/churchbug-web",
+                        server_name: "www.churchbug.site",
+                        server_aliases: ["www.churchbug.site"],
+                    },      {
+                        name: "dashboard.churchbug.site",
+                        docroot: "/vagrant/www/dashboard.churchbug.com",
+                        server_name: "dashboard.churchbug.site",
+                        server_aliases: ["dashboard.churchbug.site"],
+                    },      {
+                        name: "www.kxmx.site",
+                        docroot: "/vagrant/www/kxmx-radio",
+                        server_name: "www.kxmx.site",
+                        server_aliases: ["www.kxmx.site"],
+                    },
+                ],
+                sql:[
+                	
                 ],
                 apache:{
                     default_site_enabled: false,
