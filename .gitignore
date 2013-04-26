@@ -7,3 +7,4 @@ sites.cfg
 hosts
 Vagrantfile
 logs/*
+.DS_Store

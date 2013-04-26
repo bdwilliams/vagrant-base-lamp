@@ -104,4 +104,7 @@ fi
 
 vagrant up
 
-
+if [ -f sql/all_files.sql ]
+then
+	rm sql/all_files.sql
+fi
