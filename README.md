@@ -22,8 +22,6 @@ This repository requires the following pre-requisites: [Vagrant](http://vagrantu
 Installation
 ============
 
-Usage:
-
 ```
 $ git clone https://github.com/bdwilliams/vagrant-base-lamp.git project
 $ cd project
@@ -31,9 +29,9 @@ $ git submodule init
 $ git submodule update
 ```
 
-### Vhost Configuration
+### Virtual Host Docroot Configuration
 
-	You will then need to "cd project/www" and place any code directories that will be configured as vhosts.
+You will then need to place any code that will be configured as vhosts in the www/ directory. (Example: www/yourhost/).
 	
 ### SQL Configuration
 
@@ -43,7 +41,7 @@ You may place any *.sql files into the project/sql directory and have them loade
 
 	cp sites.cfg.dist sites.cfg
 	
-Edit this file to reflect the host you will be accessing via your browser and the directory located in the www/ directory (Example: www.yourhost.dev:yourhost)
+Edit the sites.cfg file to reflect the host you will be accessing via your browser and the directory located in the www/ directory. (Example: www.yourhost.dev:yourhost)
 
 ### Finally
 
