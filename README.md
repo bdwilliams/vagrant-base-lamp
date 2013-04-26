@@ -28,9 +28,13 @@ Usage:
 $ git clone https://github.com/bdwilliams/vagrant-base-lamp.git project
 ```
 
+### Vhost Configuration
+
 	You will then need to "cd project/www" and place any code directories that will be configured as vhosts.
 	
-	Alternatively, you may place any *.sql files into the project/sql directory and have them loaded during vagrant up.
+### SQL Configuration
+
+	You may place any *.sql files into the project/sql directory and have them loaded during vagrant up.
 
 ```
 $ git submodule init
@@ -39,7 +43,7 @@ $ git submodule update
 
 	cp sites.cfg.dist sites.cfg and edit appropriately.
 
-Finally
+### Finally
 
 	./setup.sh
 
@@ -49,6 +53,10 @@ The setup command will:
 - vagrant up
 
 After setup completes, you should be able to access any of your configured virtual hosts on port 8080.  Example:  http://www.yourhost.dev:8080
+
+phpMyAdmin is accessible from any vhost via http://www.yourhost.dev:8080/phpmyadmin
+
+All vhost logs are written to the log/ directory so there is no need to ssh into the vagrant server.
 
 Note:
 Mac OSX users may use the following command to port forward 80 -> 8080

@@ -6,3 +6,4 @@ chef/cookbooks/*
 sites.cfg
 hosts
 Vagrantfile
+logs/*
