@@ -1,7 +1,7 @@
 Documentation
 =============
 
-This repository contains a general vagrant configuration for developing web applications using PHP and Zend Framework.
+This repository contains a general vagrant configuration for developing web applications using a LAMP stack.
 
 The package installs the following:
 - ubuntu
@@ -17,61 +17,40 @@ The package installs the following:
 Configuration
 =============
 
-Before going ahead and installing all packages there are a few configuration items that you should be aware of.
-
-First of all you should edit the Vagrantfile to set up any virtual hosts you need. 
-By default this file defines 2 virtual hosts:
-
-```
-sites:[
-    {
-        name: "zf2app",
-        docroot: "/vagrant/www/",
-        server_name: "www.zf2app.dev",
-        server_aliases: ["www.zf2app.dev"],
-    },{
-        name: "debug.zf2app",
-        docroot: "/var/www/webgrind/",
-        server_name: "debug.zf2app.dev",
-        server_aliases: ["debug.zf2app.dev"],
-    }
-],
-```
-
-The first one is your main application and it is pointing to the `www/` folder within your project.
-The second one is used for debugging your code with XDEBUG.
-
-Make sure you add these domain names to your hosts file using the following line:
-
-```
-127.0.0.1 				www.zf2app.dev debug.zf2app.dev
-```
-    
-You can create any number of virtual hosts by editing this Vagrantfile.
-
-Apart from this you can also change the root mysql password, the loaded apache2 modules and any other setting from the used cookbooks.
+This repository requires the following pre-requisites: [Vagrant](http://vagrantup.com/) and [VirtualBox](htp://www.virtualbox.org).
 
 Installation
 ============
 
-In order to use this package you need to install [Vagrant](http://vagrantup.com/)and have a basic knowledge on how to use it.
-
 Usage:
 
 ```
-$ git clone https://github.com/ZendExperts/vagrant-base-lamp.git project
-$ cd project
-$ git submodule init
-$ git submodule update
-$ vagrant up
+$ git clone https://github.com/bdwilliams/vagrant-base-lamp.git project
 ```
 
-After the last command completes you should be able to access your application using the virtual hosts you defined(see configuration above) using port 8080: `http://www.zf2app.dev:8080/` and `http://debug.zf2app.dev:8080/`.
+	You will then need to "cd project/www" and place any code directories that will be configured as vhosts.
+	
+	Alternatively, you may place any *.sql files into the project/sql directory and have them loaded during vagrant up.
 
-Credits
-=======
+```
+$ git submodule init
+$ git submodule update
+```
 
-The cookbooks have been taken from [Opscode Public Cookbooks](https://github.com/opscode-cookbooks/) and some code was used from [Yann Mainier](https://github.com/ymainier)'s vagrant-lamp repository to help with the debugging.
-A few files were changed to better fit the development environment and a cookbook was added to put everything together.
+	cp sites.cfg.dist sites.cfg and edit appropriately.
 
-Please use it any way you want and add any changes that can make this vagrant configuration perfect from developing custom PHP/Zend applications.
+Finally
+
+	./setup.sh
+
+The setup command will:
+- Generate the Vagrantfile adding vhosts.
+- Prep any *.sql files located in the sql/ directory for auto-loading.
+- vagrant up
+
+After setup completes, you should be able to access any of your configured virtual hosts on port 8080.  Example:  http://www.yourhost.dev:8080
+
+Note:
+Mac OSX users may use the following command to port forward 80 -> 8080
+
+	sudo ipfw add 100 fwd 127.0.0.1,8080 tcp from any to any 80 in
