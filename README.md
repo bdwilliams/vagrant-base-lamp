@@ -26,6 +26,9 @@ Usage:
 
 ```
 $ git clone https://github.com/bdwilliams/vagrant-base-lamp.git project
+$ cd project
+$ git submodule init
+$ git submodule update
 ```
 
 ### Vhost Configuration
@@ -34,14 +37,13 @@ $ git clone https://github.com/bdwilliams/vagrant-base-lamp.git project
 	
 ### SQL Configuration
 
-	You may place any *.sql files into the project/sql directory and have them loaded during vagrant up.
+You may place any *.sql files into the project/sql directory and have them loaded during vagrant up.
 
-```
-$ git submodule init
-$ git submodule update
-```
+### Configure Vhosts
 
-	cp sites.cfg.dist sites.cfg and edit appropriately.
+	cp sites.cfg.dist sites.cfg
+	
+Edit this file to reflect the host you will be accessing via your browser and the directory located in the www/ directory (Example: www.yourhost.dev:yourhost)
 
 ### Finally
 
@@ -52,13 +54,14 @@ The setup command will:
 - Prep any *.sql files located in the sql/ directory for auto-loading.
 - vagrant up
 
-After setup completes, you should be able to access any of your configured virtual hosts on port 8080.  Example:  http://www.yourhost.dev:8080
+### Additional Notes
 
-phpMyAdmin is accessible from any vhost via http://www.yourhost.dev:8080/phpmyadmin
+- After setup completes, you should be able to access any of your configured virtual hosts on port 8080.  Example:  http://www.yourhost.dev:8080
+- phpMyAdmin is accessible from any vhost via http://www.yourhost.dev:8080/phpmyadmin
+- All vhost logs are written to the logs/ directory so there is no need to ssh into the vagrant server.
 
-All vhost logs are written to the log/ directory so there is no need to ssh into the vagrant server.
+### Optional Note
 
-Note:
 Mac OSX users may use the following command to port forward 80 -> 8080
 
 	sudo ipfw add 100 fwd 127.0.0.1,8080 tcp from any to any 80 in
